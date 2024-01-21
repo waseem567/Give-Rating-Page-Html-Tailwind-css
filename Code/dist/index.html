@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Day 3</title>
+    <style>
+        /* font import  */
+        @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+
+        body {
+            background: #141519;
+            font-family: 'Overpass', sans-serif;
+        }
+
+        .bg-orange {
+            background: hsl(25, 97%, 53%);
+        }
+
+        .text-orng {
+            color: hsl(25, 97%, 53%);
+        }
+
+        .bg-l-gray {
+            background: hsl(217, 12%, 63%);
+        }
+
+        .text-g {
+            color: hsl(217, 12%, 63%);
+        }
+
+        .card-bg {
+            background: #1f2630;
+        }
+
+        .star-bg {
+            background: #262f38;
+        }
+    </style>
+</head>
+
+<body class="font">
+    <!-- container -->
+    <div class="container h-screen flex justify-center items-center mx-auto">
+        <div
+            class="card-bg flex flex-col justify-between items-start w-11/12 sm:w-4/5 md:w-1/2 lg:w-[400px] rounded-xl ">
+            <!-- content before submission -->
+            <div class="flex flex-col justify-between items-start w-full gap-5 p-6" id="beforesubmit">
+                <!-- star box -->
+                <div class="star-bg h-[42px] w-[42px] rounded-full relative">
+                    <img class="h-[20px] w-[20px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                        src="./images/icon-star.svg" alt="star">
+                </div>
+                <!-- star box ends -->
+                <!-- text -->
+                <h2 class="text-white font-bold">How did we do?</h2>
+                <p class="text-g font-normal text-base">Please let us know he we did your support request. All feedback
+                    is appreciated to help us improve our offering! </p>
+                <!-- text ends -->
+                <!-- circles -->
+                <div class="flex md:justify-start justify-between items-center gap-1 md:gap-4 w-full">
+                    <!-- boxes -->
+                    <div class="star-bg h-[43px] w-[43px] md:h-[50px] md:w-[50px]  rounded-full flex justify-center items-center font-bold hover:cursor-pointer text-white hover:text-orange-600 star"
+                        onclick="onPressRating(1)">1</div>
+                    <!-- box2 -->
+                    <div class="star-bg h-[43px] w-[43px] md:h-[50px] md:w-[50px]  rounded-full flex justify-center items-center font-bold hover:cursor-pointer text-white hover:text-orange-600 star"
+                        onclick="onPressRating(2)">2</div>
+                    <!-- box3 -->
+                    <div class="star-bg h-[43px] w-[43px] md:h-[50px] md:w-[50px]  rounded-full flex justify-center items-center font-bold hover:cursor-pointer text-white hover:text-orange-600 star"
+                        onclick="onPressRating(3)">3</div>
+                    <!-- box4 -->
+                    <div class="star-bg h-[43px] w-[43px] md:h-[50px] md:w-[50px]  rounded-full flex justify-center items-center font-bold hover:cursor-pointer text-white hover:text-orange-600 star"
+                        onclick="onPressRating(4)">4</div>
+                    <!-- box5 -->
+                    <div class="star-bg h-[43px] w-[43px] md:h-[50px] md:w-[50px]  rounded-full flex justify-center items-center font-bold hover:cursor-pointer text-white hover:text-orange-600 star"
+                        onclick="onPressRating(5)">5</div>
+                </div>
+                <!-- button -->
+                <div class="w-full">
+                    <button class="bg-orange hover:bg-orange-600 w-full rounded-full text-white py-3 font"
+                        onclick="submitHandler()">Submit</button>
+                </div>
+            </div>
+            <!-- content after submission rating -->
+            <div class="hidden flex flex-col justify-between items-start w-full gap-5 p-6" id="aftersubmit">
+                <!-- image after rating -->
+                <div class="flex justify-center items-center w-full">
+                    <img class="h-[90px] animate-pulse" src="./images/illustration-thank-you.svg" alt="thank you">
+                </div>
+                <!-- image after rating ends -->
+                <!-- orange selected text -->
+                <div class="py-2 px-4 text-orng star-bg rounded-full mx-auto" id="selected-text"></div>
+                <!-- orange selected text ends -->
+                <!-- text after submission -->
+                <h2 class="text-white font-bold text-2xl text-center w-full">Thank You!</h2>
+                <p class="text-g font-normal text-sm text-center md:px-4">We appreciate you taking the time to give a
+                    rating. If you ever need more support, don't hesitate to get in touch.</p>
+                <div class="w-full">
+                    <button class="bg-orange hover:bg-orange-400 w-full rounded-full text-white py-3 font"
+                        onclick="goBackHandler()">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // elements reference 
+        const ratings = document.querySelectorAll(".star");
+        let rate = 0;
+        // onPress Rating handler
+        function onPressRating(index) {
+            rate = index;
+            for (i = 0; i < 5; i++) {
+                if (i < index) {
+                    ratings[i].style.backgroundColor = "hsl(25, 97%, 53%)";
+                } else {
+                    ratings[i].style.backgroundColor = "#262f38";
+                }
+            }
+        }
+        // references of elements
+        const contentAfterSubmission = document.getElementById("aftersubmit");
+        const contentBeforeSubmission = document.getElementById("beforesubmit");
+        const text = document.getElementById("selected-text");
+        // submit handler
+        function submitHandler() {
+            if (rate === 0) {
+                return alert("please rate first !");
+            }
+            text.innerHTML = `You selected ${rate} out of 5`;
+            contentAfterSubmission.classList.toggle("hidden");
+            contentBeforeSubmission.classList.toggle("hidden");
+        }
+
+        // goBackHandler
+        function goBackHandler() {
+            ratings.forEach((el, index) => {
+                ratings[index].style.backgroundColor = "#262f38";
+            })
+            contentAfterSubmission.classList.toggle("hidden");
+            contentBeforeSubmission.classList.toggle("hidden");
+        }
+    </script>
+</body>
+</html>
